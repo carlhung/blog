@@ -59,6 +59,6 @@ There is a trick to make it chain together:
 ```swift
 let model: Model? = Model()
 if let m = model, let p = .some(m.p), let name = p.contactPerson?.name {
-    print(name)
+    xxx
 }
 ```
