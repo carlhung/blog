@@ -1,6 +1,7 @@
 # Optional Chaining Trick
 
-Prepare some code:
+Prepare some code, it isn't important. Just copy and paste:
+
 ```swift
 @propertyWrapper
 enum Indirect<T> {
@@ -26,14 +27,21 @@ class Model {
 }
 ```
 
+
+
 When trying to unwrap it like that:
+
 ```swift
 let model: Model? = Model()
 if let m = model, let p = m.p {
                     `- error: initializer for conditional binding must have Optional type, not 'Person'
 }
 ```
+
+
+
 what you can do is:
+
 ```swift
 let model: Model? = Model()
 if let m = model {
@@ -43,7 +51,11 @@ if let m = model {
     }
 }
 ```
+
+
+
 There is a trick to make it chain together:
+
 ```swift
 let model: Model? = Model()
 if let m = model, let p = .some(m.p), let name = p.contactPerson?.name {
