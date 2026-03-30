@@ -3,6 +3,5 @@ plugins:
 - jekyll-remote-theme
 github:
   is_project_page: false
-plugins:
 title: Ling Ho's Blog
 description: Bookmark this to keep an eye on my project updates!
