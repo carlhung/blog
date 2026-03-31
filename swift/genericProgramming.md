@@ -10,7 +10,7 @@ func p<T>(value: T) {
 }
 ```
 
-We can even add constraint after the place holder.
+We can even add constraint after the place holder. Within the place holder, only allows to use `:` and `&` to constraint the generic type. You can also use `where` which you can use `==` or `:` to constraint to types. using `==` to denote the associated type from a type must equal the associated type from the other type.
 
 ```swift
 func basicGeneric<T: CustomStringConvertible & Hashable>(_ value: T) {
@@ -35,17 +35,29 @@ func basicGeneric3<C, D>(_ value1: C, _ value2: D) where C: Collection, C.Elemen
 func basicGeneric4<C: Collection, D: Collection>(_ value1: C, _ value2: D) where C.Element: CustomStringConvertible, D.Element == C.Element {
     print("Value1: \(value1), value2: \(value2)")
 }
-
+```
+Pplace holder can only constrain to one class, even if the other protocol has no class requirement.
+```swift
 class C1 {}
 class C2 {}
 
 // ❌, place holder can only constrain to one class, even if the other protocol has no class requirement
 func generic<T: C2 & C1> (_ value: T) {
-                     `- error: protocol-constrained type cannot contain class 'C1' because it already contains class 'C2'
+`- error: protocol-constrained type cannot contain class 'C1' because it already contains class 'C2'
 }
 
 // ✅
 func generic<T: C2 & CustomStringConvertible> (_ value: T) {
-    // ...
+// ...
 }
+```
+Using `==` to constraint the same type.
+```swift
+func hasSameValue<C1, C2, V>(_ c1: C1, _ c2: C2, value: V) -> Bool where C1: Collection, C2: Collection, C1.Element == C2.Element, V == C1.Element,C1.Element: Equatable {
+    return c1.contains(value) && c2.contains(value)
+}
+
+let s: Set<Int> = Set([0, 2, 7])
+let a: [Int] = [1, 2, 10]
+let b = hasSameValue(s, a, value: 2) // return true
 ```
