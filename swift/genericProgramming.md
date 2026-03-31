@@ -10,7 +10,7 @@ func p<T>(value: T) {
 }
 ```
 
-We can even add constraint after the place holder. Within the place holder, only allows to use `:` and `&` to constraint the generic type. You can also use `where` which you can use `==` or `:` to constraint to types. using `==` to denote the associated type from a type must equal the associated type from the other type.
+We can even add constraint after the place holder. Within the place holder, only allows the use of `:` and `&` to constraint the generic type. You can also use `where` which you can use `==` or `:` to constraint to types. using `==` to denote the associated type from a type must equal the associated type from the other type.
 
 ```swift
 func basicGeneric<T: CustomStringConvertible & Hashable>(_ value: T) {
@@ -36,7 +36,7 @@ func basicGeneric4<C: Collection, D: Collection>(_ value1: C, _ value2: D) where
     print("Value1: \(value1), value2: \(value2)")
 }
 ```
-Pplace holder can only constrain to one class, even if the other protocol has no class requirement.
+Place holder can only constrain to one class, even if the other protocol has no class requirement.
 ```swift
 class C1 {}
 class C2 {}
@@ -85,4 +85,26 @@ func hasSameValue<each C, V>(_ collections: repeat (each C), value: V) -> Bool
 
 // so you can:
 let b = hasSameValue(s, a1, a2, value: 12) // ✅, return b = true
+```
+You can also use `any` and `some` as generic type. 
+* `any` is a real type, `Existential type`, it will have an indirect call.
+* `some`(Opaque/Opaque Parameter Type), some is actually syntactic sugar for a generic type.
+```swift
+func g1<T: CustomStringConvertible>(_ x: T) -> String {
+    return String(describing: x)
+}
+
+func g2(_ x: some CustomStringConvertible) -> String {
+    return String(describing: x)
+}
+
+func g3(_ x: any CustomStringConvertible) -> String {
+    return String(describing: x)
+}
+// so you can:
+let str = "hello"
+let aNum = 23
+let p: any CustomStringConvertible = 10.2
+// all ✅
+g1(str); g1(aNum); g1(p); g2(str); g2(aNum); g2(p); g3(str); g3(aNum); g3(p)
 ```
