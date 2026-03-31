@@ -56,7 +56,7 @@ Using `==` to constraint the same type.
 func hasSameValue<C1, C2, V>(_ c1: C1, _ c2: C2, value: V) -> Bool where C1: Collection, C2: Collection, C1.Element == C2.Element, V == C1.Element,C1.Element: Equatable {
     return c1.contains(value) && c2.contains(value)
 }
-
+// The `Element` is Int. So, different `Collection`, as long as the `Element` are the same. it can pass the Collection in the function. But the `Element` also needs to be `Equatable`
 let s: Set<Int> = Set([0, 2, 7])
 let a1: [Int] = [1, 2, 10]
 let a2: [Int] = [1, 3, 5]   
