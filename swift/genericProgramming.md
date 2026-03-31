@@ -60,6 +60,6 @@ func hasSameValue<C1, C2, V>(_ c1: C1, _ c2: C2, value: V) -> Bool where C1: Col
 let s: Set<Int> = Set([0, 2, 7])
 let a1: [Int] = [1, 2, 10]
 let a2: [Int] = [1, 3, 5]   
-let b1 = hasSameValue(b, a, value: 2) // return false
-let b2 = hasSameValue(s, a, value: 2) // return true
+let b1 = hasSameValue(a1, a2, value: 2) // return false
+let b2 = hasSameValue(s, a1, value: 2) // return true
 ```
