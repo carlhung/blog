@@ -89,6 +89,7 @@ let b = hasSameValue(s, a1, a2, value: 12) // ✅, return b = true
 You can also use `any` and `some` as generic type. 
 * `any` is a real type, `Existential type`, it will have an indirect call.
 * `some`(Opaque/Opaque Parameter Type), `some` is actually syntactic sugar for a generic type.
+
 ```swift
 func g1<T: CustomStringConvertible>(_ x: T) -> String {
     return String(describing: x)
